@@ -77,6 +77,7 @@ with open(Filename, 'rb') as file:
     print("Reading " + Filename)
     if header == b"LIDARSCANNERSCANFILE":
         print("File type: 1")
+        file.read(1) # Skip new line
         for line in file:
             data = json.loads(line)
             pos2 = data[0].replace('[',"").replace(']',"")
@@ -96,3 +97,4 @@ with open(Filename, 'rb') as file:
             normal = normal_to_angles(freadfloat(file)/div,freadfloat(file)/div,freadfloat(file)/div)
             colour = {'r': freadbyte(file),'g': freadbyte(file),'b': freadbyte(file)}
             create_dot(pos,normal,colour)
+
